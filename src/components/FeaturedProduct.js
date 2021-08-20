@@ -1,10 +1,23 @@
-export const FeaturedProduct = () => {
-    return (
-        <div className="product-summary">
-            {/* <img src="http://placeimg.com/640/480/cats"/>
-            <div class="content">
-                <h3>Incredible Metal Sausages</h3>
-            </div> */}
+import { ADD } from "../utils/app-const";
+import { GlobalContext } from "../context/GlobalState";
+import { useContext } from "react";
+
+export const FeaturedProduct = (props) => {
+  const { updateCart } = useContext(GlobalContext);
+  const { id, name, description, defaultImage, price, discount } = props;
+
+  return (
+    <div className="feature">
+      <img src={defaultImage} alt="Feature" />
+      <div className="feature-detail">
+        <h4>{name}</h4>
+        <p>{description}</p>
+        <div className="price-detail">
+          <span className="price">${price}</span> |{" "}
+          <span className="discount">-${discount}</span>
         </div>
-    );
-}
+        <button onClick={(event) => updateCart(id, ADD)}>Add to Cart</button>
+      </div>
+    </div>
+  );
+};
