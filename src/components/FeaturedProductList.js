@@ -1,4 +1,3 @@
-import React from 'react'
 import { FeaturedProduct } from './FeaturedProduct';
 
 export const FeaturedProductList = () => {
