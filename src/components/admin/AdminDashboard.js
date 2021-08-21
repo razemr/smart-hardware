@@ -8,6 +8,7 @@ import {
   ADMIN_PRODUCT_QUERY_LIMIT,
   TOTAL_PRODUCTS,
 } from "../../utils/app-const";
+import { Paginator } from "../shared/Paginator";
 
 export const AdminDashboard = () => {
   let { getProducts, products, addProduct, deleteProduct, editProduct } =
@@ -15,11 +16,7 @@ export const AdminDashboard = () => {
   const [searchText, setSearchText] = useState("");
   const [viewDialog, setViewDialog] = useState(false);
   const [dialogType, setDialogType] = useState(ADD);
-  const [page, setPage] = useState((value) => {
-    if (typeof value != "number" || parseInt(value) != value) return 1;
-    return value;
-  });
-  let maxPage = Math.ceil(TOTAL_PRODUCTS / ADMIN_PRODUCT_QUERY_LIMIT);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getProducts({
@@ -100,17 +97,15 @@ export const AdminDashboard = () => {
             placeholder="Search"
             onChange={(event) => setSearchText(event.target.value)}
           ></input>
-          <div>
-            <input
-              type="number"
-              onChange={(event) => setPage(event.target.value)}
-              value={page}
-              min="1"
-              max={maxPage}
-            ></input>{" "}
-            / {maxPage}
-          </div>
-          <button onClick={(event) => openAddDialog()}>Add Product</button>
+          <Paginator
+            onChange={setPage}
+            page={page}
+            limit={ADMIN_PRODUCT_QUERY_LIMIT}
+            total={TOTAL_PRODUCTS}
+          />
+          <button className="btn-default" onClick={(event) => openAddDialog()}>
+            Add Product
+          </button>
         </div>
         <table id="admin-table">
           <thead>
@@ -133,13 +128,13 @@ export const AdminDashboard = () => {
                 <td>
                   <div className="actions">
                     <button
-                      className="edit"
+                      className="btn-primary"
                       onClick={(event) => openEditDialog(p)}
                     >
                       edit
                     </button>
                     <button
-                      className="remove"
+                      className="btn-secondary"
                       onClick={(event) => deleteProduct(p.id)}
                     >
                       remove
@@ -156,7 +151,7 @@ export const AdminDashboard = () => {
         <div id="add-product">
           <form onSubmit={formik.handleSubmit}>
             <div className="close">
-              <button onClick={(event) => closeDialog()}>x</button>
+              <button className="btn-default" onClick={(event) => closeDialog()}>x</button>
             </div>
             {dialogType === ADD && <h3>New Product</h3>}
             {dialogType === EDIT && <h3>Edit Product</h3>}
@@ -219,8 +214,8 @@ export const AdminDashboard = () => {
               ></textarea>
             </div>
             <div className="footer">
-              <button type="submit">Submit</button>
-              <button type="button" onClick={(event) => closeDialog()}>
+              <button className="btn-primary" type="submit">Submit</button>
+              <button className="btn-secondary" type="button" onClick={(event) => closeDialog()}>
                 Cancel
               </button>
             </div>

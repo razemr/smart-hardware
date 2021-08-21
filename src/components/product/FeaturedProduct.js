@@ -1,5 +1,5 @@
-import { ADD } from "../utils/app-const";
-import { GlobalContext } from "../context/GlobalState";
+import { ADD } from "../../utils/app-const";
+import { GlobalContext } from "../../context/GlobalState";
 import { useContext } from "react";
 
 export const FeaturedProduct = (props) => {
@@ -16,7 +16,7 @@ export const FeaturedProduct = (props) => {
           <span className="price">${price}</span> |{" "}
           <span className="discount">-${discount}</span>
         </div>
-        <button onClick={(event) => updateCart(id, ADD)}>Add to Cart</button>
+        <button className="btn-primary" onClick={(event) => updateCart(id, ADD)}>Add to Cart</button>
       </div>
     </div>
   );

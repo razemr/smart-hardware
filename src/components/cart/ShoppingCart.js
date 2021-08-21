@@ -1,5 +1,5 @@
 import { CartItem } from "./CartItem";
-import { GlobalContext } from "../context/GlobalState";
+import { GlobalContext } from "../../context/GlobalState";
 import { useContext, useEffect } from "react";
 
 export const ShoppingCart = () => {

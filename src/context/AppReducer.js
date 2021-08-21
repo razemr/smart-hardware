@@ -27,7 +27,7 @@ const variable = (state, action) => {
         ...state,
         featuredProduct: action.payload[state.featuredProductIndex],
         featuredProductIndex:
-          ++state.featuredProductIndex > 9 ? 0 : state.featuredProductIndex,
+          ++state.featuredProductIndex > 8 ? 0 : state.featuredProductIndex,
       };
     case ADD_PRODUCT:
       return {

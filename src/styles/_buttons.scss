@@ -1,0 +1,30 @@
+@use 'sass:color';
+@import 'variables';
+
+
+%button-base {
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@mixin color-btn($color) {
+    border-color: color.scale($color, $lightness: -10%);
+    background-color: $color;
+}
+
+.btn-default {
+    @extend %button-base;
+    @include color-btn($default-color);
+}
+
+.btn-primary {
+    @extend %button-base;
+    @include color-btn($primary-color);
+}
+
+.btn-secondary {
+    @extend %button-base;
+    @include color-btn($secondary-color);
+}

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { GlobalContext } from "../../context/GlobalState";
 import { Link, useLocation } from "react-router-dom";
 
 export const NavBar = () => {
@@ -16,12 +16,12 @@ export const NavBar = () => {
     <div className="nav-bar">
       {location.pathname === "/admin" && (
         <Link to="/">
-          <button>Home</button>
+          <button className="btn-default">Home</button>
         </Link>
       )}
       {location.pathname === "/" && (
         <Link to="/admin">
-          <button>Admin Panel</button>
+          <button className="btn-default">Admin Panel</button>
         </Link>
       )}
       <img

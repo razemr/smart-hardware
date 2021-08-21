@@ -1,17 +1,13 @@
 import { Product } from "./Product";
-import { GlobalContext } from "../context/GlobalState";
+import { GlobalContext } from "../../context/GlobalState";
 import { useContext, useEffect, useState } from "react";
-import { PRODUCT_QUERY_LIMIT, TOTAL_PRODUCTS } from "../utils/app-const";
+import { PRODUCT_QUERY_LIMIT, TOTAL_PRODUCTS } from "../../utils/app-const";
+import { Paginator } from "../shared/Paginator";
 
 export const ProductList = () => {
   const { products, getProducts } = useContext(GlobalContext);
   const [searchText, setSearchText] = useState("");
-  const [page, setPage] = useState((value) => {
-    if (typeof value != "number" || parseInt(value) != value) return 1;
-    return value;
-  });
-
-  let maxPage = Math.ceil(TOTAL_PRODUCTS / PRODUCT_QUERY_LIMIT);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getProducts({
@@ -31,16 +27,7 @@ export const ProductList = () => {
           placeholder="Search"
           onChange={(event) => setSearchText(event.target.value)}
         ></input>
-        <div>
-          <input
-            type="number"
-            onChange={(event) => setPage(event.target.value)}
-            value={page}
-            min="1"
-            max={maxPage}
-          ></input>{" "}
-          / {maxPage}
-        </div>
+        <Paginator onChange={setPage} page={page} limit={PRODUCT_QUERY_LIMIT} total={TOTAL_PRODUCTS}/>
       </div>
       <div className="main">
         {products.map((product) => (

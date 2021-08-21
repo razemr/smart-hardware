@@ -1,9 +1,10 @@
 import "./App.css";
+import "./styles/styles.scss";
 import { GlobalProvider } from "./context/GlobalState";
-import { Header } from "./components/Header";
-import { ShoppingCart } from "./components/ShoppingCart";
-import { ProductsDisplay } from "./components/ProductsDisplay";
-import { NavBar } from "./components/NavBar";
+import { Header } from "./components/core/Header";
+import { ShoppingCart } from "./components/cart/ShoppingCart";
+import { ProductsDisplay } from "./components/product/ProductsDisplay";
+import { NavBar } from "./components/core/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AdminDashboard } from "./components/admin/AdminDashboard";
 

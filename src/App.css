@@ -311,7 +311,7 @@ textarea {
 
 .feature {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .feature img {
@@ -352,7 +352,6 @@ textarea {
 @media (max-width: 600px) {
   .app {
     max-width: 100%;
-    background-color: pink;
   }
 
   #admin-table .actions {

@@ -1,4 +1,4 @@
-import { DELETE } from "../utils/app-const";
+import { DELETE } from "../../utils/app-const";
 
 export const CartItem = (props) => {
   const { id, name, quantity, price, onClick } = props;
