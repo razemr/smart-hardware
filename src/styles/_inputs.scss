@@ -1,0 +1,25 @@
+@import "variables";
+
+%input-base {
+  width: $standard-input-width;
+  border-radius: $input-border-radius;
+  border: $input-border;
+  font-size: $input-font-size;
+}
+
+input[type="text"],
+input[type="number"] {
+  @extend %input-base;
+  height: $input-height;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  outline: none;
+}
+
+textarea {
+  @extend %input-base;
+  min-height: 100px;
+}

@@ -7,14 +7,14 @@ export const FeaturedProduct = (props) => {
   const { id, name, description, defaultImage, price, discount } = props;
 
   return (
-    <div className="feature">
+    <div id="featured-container">
       <img src={defaultImage} alt="Feature" />
-      <div className="feature-detail">
+      <div id="feature-detail">
         <h4>{name}</h4>
         <p>{description}</p>
-        <div className="price-detail">
-          <span className="price">${price}</span> |{" "}
-          <span className="discount">-${discount}</span>
+        <div>
+          <span className="color-primary">${price}</span> |{" "}
+          <span className="color-secondary">-${discount}</span>
         </div>
         <button className="btn-primary" onClick={(event) => updateCart(id, ADD)}>Add to Cart</button>
       </div>

@@ -13,7 +13,7 @@ export const NavBar = () => {
   }, []);
 
   return (
-    <div className="nav-bar">
+    <div id="nav-bar">
       {location.pathname === "/admin" && (
         <Link to="/">
           <button className="btn-default">Home</button>
@@ -25,6 +25,7 @@ export const NavBar = () => {
         </Link>
       )}
       <img
+        className="user-icon"
         src={user.defaultImage || "http://placeimg.com/128/128/cats"}
         alt="User avatar"
       />

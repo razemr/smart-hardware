@@ -12,19 +12,19 @@ function App() {
   return (
     <GlobalProvider>
       <Router>
-        <div className="app">
+        <div id="app-container">
           <NavBar />
           <Header />
 
           <Switch>
             <Route path="/admin">
-              <div className="container">
+              <div className="main-container">
                 <AdminDashboard />
               </div>
             </Route>
 
             <Route path="/" exact>
-              <div className="container">
+              <div className="main-container">
                 <ProductsDisplay />
                 <ShoppingCart />
               </div>

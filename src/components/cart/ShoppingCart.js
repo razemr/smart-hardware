@@ -19,7 +19,7 @@ export const ShoppingCart = () => {
   }, []);
 
   return (
-    <div className="shopping-cart">
+    <div id="cart-container">
       <h3>Shopping Cart</h3>
       <ul>
         {cart.products.map((item) => (
@@ -30,20 +30,17 @@ export const ShoppingCart = () => {
       </ul>
 
       <hr />
-
-      <div className="summary">
-        <div className="total">
-          <div>Sub-total:</div>
-          <div>${subTotal.toFixed(2)}</div>
-        </div>
-        <div className="total">
-          <div>Discount:</div>
-          <div>-${discount.toFixed(2)}</div>
-        </div>
-        <div className="total">
-          <div>Total:</div>
-          <div>${total.toFixed(2)}</div>
-        </div>
+      <div className="total color-default">
+        <div>Sub-total:</div>
+        <div>${subTotal.toFixed(2)}</div>
+      </div>
+      <div className="total color-secondary">
+        <div>Discount:</div>
+        <div>-${discount.toFixed(2)}</div>
+      </div>
+      <div className="total color-primary">
+        <div>Total:</div>
+        <div>${total.toFixed(2)}</div>
       </div>
     </div>
   );

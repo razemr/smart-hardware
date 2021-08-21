@@ -1,0 +1,5 @@
+@mixin round-icon($diameter) {
+    height: $diameter;
+    width: $diameter;
+    border-radius: $diameter;
+}

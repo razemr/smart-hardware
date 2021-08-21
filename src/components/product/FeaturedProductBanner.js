@@ -20,8 +20,8 @@ export const FeaturedProductBanner = () => {
   }, []);
 
   return (
-    <div className="featured-banner">
-      <h4>Product Highlight</h4>
+    <div id="featured-banner">
+      <h4>Highlights</h4>
       <FeaturedProduct {...featuredProduct} />
     </div>
   );

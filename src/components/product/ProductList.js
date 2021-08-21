@@ -8,11 +8,18 @@ export const ProductList = () => {
   const { products, getProducts } = useContext(GlobalContext);
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
+  const [hide, setHide] = useState(false);
 
   useEffect(() => {
+    if(searchText){
+      setHide(true);
+    } else {
+      setHide(false);
+    }
+
     getProducts({
       q: searchText ? searchText : "",
-      _page: page,
+      _page: searchText ? 1: page,
       _limit: PRODUCT_QUERY_LIMIT,
     });
 
@@ -21,20 +28,19 @@ export const ProductList = () => {
 
   return (
     <div className="product-list">
-      <div className="search">
+      <div className="action-bar">
         <input
           type="text"
           placeholder="Search"
           onChange={(event) => setSearchText(event.target.value)}
         ></input>
-        <Paginator onChange={setPage} page={page} limit={PRODUCT_QUERY_LIMIT} total={TOTAL_PRODUCTS}/>
+        <Paginator onChange={setPage} page={page} limit={PRODUCT_QUERY_LIMIT} total={TOTAL_PRODUCTS} hide={hide}/>
       </div>
-      <div className="main">
+      <div id="product-grid">
         {products.map((product) => (
           <Product key={product.id} {...product} />
         ))}
       </div>
-      <div className="pagination"></div>
     </div>
   );
 };

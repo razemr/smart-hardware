@@ -1,0 +1,21 @@
+@import 'variables';
+
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+
+    input {
+        width: 100% !important;
+    }
+
+    .error {
+        color: crimson;
+        font-size: 12px;
+    }
+
+    .error:before {
+        content: "*";
+    }
+}

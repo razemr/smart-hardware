@@ -17,11 +17,18 @@ export const AdminDashboard = () => {
   const [viewDialog, setViewDialog] = useState(false);
   const [dialogType, setDialogType] = useState(ADD);
   const [page, setPage] = useState(1);
+  const [hide, setHide] = useState(false);
 
   useEffect(() => {
+    if(searchText){
+      setHide(true);
+    } else {
+      setHide(false);
+    }
+
     getProducts({
       q: searchText ? searchText : "",
-      _page: page,
+      _page: searchText ? 1: page,
       _limit: ADMIN_PRODUCT_QUERY_LIMIT,
     });
 
@@ -37,8 +44,8 @@ export const AdminDashboard = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      price: 0,
-      discount: 0,
+      price: "",
+      discount: "",
       defaultImage: "",
       images: "",
       id: null,
@@ -62,7 +69,7 @@ export const AdminDashboard = () => {
             price: values.price,
             discount: values.discount,
             defaultImage: values.defaultImage,
-            images: values.images,
+            images: values.images.split(','),
           },
           values.id
         );
@@ -90,8 +97,8 @@ export const AdminDashboard = () => {
 
   return (
     <>
-      <div className="admin-panel">
-        <div className="main-actions">
+      <div id="admin-container">
+        <div className="action-bar">
           <input
             type="text"
             placeholder="Search"
@@ -102,6 +109,7 @@ export const AdminDashboard = () => {
             page={page}
             limit={ADMIN_PRODUCT_QUERY_LIMIT}
             total={TOTAL_PRODUCTS}
+            hide={hide}
           />
           <button className="btn-default" onClick={(event) => openAddDialog()}>
             Add Product

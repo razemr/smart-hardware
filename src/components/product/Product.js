@@ -9,14 +9,18 @@ export const Product = (props) => {
   return (
     <div className="product-card">
       <img src={defaultImage} alt={name} />
-      <div className="content">
+      <div className="card-content">
         <h4>{name}</h4>
-        <div>
-          <span className="price">${price}</span> |{" "}
-          <span className="discount">-${discount}</span>
+        <div className="price">
+          <span className="color-primary">${price}</span> |{" "}
+          <span className="color-secondary">-${discount}</span>
         </div>
         <p>{description}</p>
-        <button className="btn-primary" onClick={(event) => updateCart(id, ADD)}>Add to Cart</button>
+
+        <div className="actions">
+          <button className="btn-primary" onClick={(event) => updateCart(id, ADD)}>Add to Cart</button>
+        </div>
+        
       </div>
     </div>
   );
