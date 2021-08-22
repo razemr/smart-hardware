@@ -13,8 +13,8 @@ import {
   GET_CART,
   DELETE_PRODUCT,
   EDIT_PRODUCT,
-  GET_FEATURED_PRODUCTS,
-  LOADING
+  GET_FEATURED_PRODUCT,
+  LOADING,
 } from "../utils/app-const";
 
 const initialState = {
@@ -29,10 +29,13 @@ const initialState = {
       lastName: "",
     },
   },
-  featuredProducts: [],
+  featuredProduct: {},
   loading: false,
   error: "",
 };
+
+let featuredProducts = [];
+let featuredIndex = 0;
 
 const ax = axios.create({
   baseURL: "http://localhost:8080/",
@@ -45,9 +48,9 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   const setLoading = () => {
-      dispatch({
-        type: LOADING
-      });
+    dispatch({
+      type: LOADING,
+    });
   };
 
   async function getUser() {
@@ -86,14 +89,23 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function getFeaturedProducts() {
+  async function getFeaturedProduct() {
     try {
-      setLoading();
-      let res = await ax.get("recommendeds");
+
+      if(featuredProducts.length === 0) {
+        setLoading();
+        let res = await ax.get("recommendeds");
+        featuredProducts = [...res.data];
+        featuredIndex = 0;
+
+      } else {
+        featuredIndex = featuredIndex + 1;
+        if(featuredIndex === featuredProducts.length ) featuredIndex = 0;
+      }
 
       dispatch({
-        type: GET_FEATURED_PRODUCTS,
-        payload: res.data,
+        type: GET_FEATURED_PRODUCT,
+        payload: featuredProducts[featuredIndex],
       });
     } catch (error) {
       dispatch({
@@ -225,9 +237,10 @@ export const GlobalProvider = ({ children }) => {
         error: state.error,
         user: state.user,
         featuredProducts: state.featuredProducts,
+        featuredProduct: state.featuredProduct,
         loading: state.loading,
         getProducts,
-        getFeaturedProducts,
+        getFeaturedProduct,
         addProduct,
         deleteProduct,
         editProduct,
