@@ -11,7 +11,7 @@ import {
 import { Paginator } from "../shared/Paginator";
 
 export const AdminDashboard = () => {
-  let { getProducts, products, addProduct, deleteProduct, editProduct } =
+  const { getProducts, products, addProduct, deleteProduct, editProduct } =
     useContext(GlobalContext);
   const [searchText, setSearchText] = useState("");
   const [viewDialog, setViewDialog] = useState(false);
@@ -52,6 +52,7 @@ export const AdminDashboard = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+
       if (dialogType === ADD) {
         addProduct({
           name: values.name,
@@ -69,7 +70,7 @@ export const AdminDashboard = () => {
             price: values.price,
             discount: values.discount,
             defaultImage: values.defaultImage,
-            images: values.images.split(','),
+            images: values.images,
           },
           values.id
         );
@@ -80,16 +81,19 @@ export const AdminDashboard = () => {
   });
 
   function closeDialog() {
+    document.body.classList.remove("dialog-visible");
     formik.resetForm();
     setViewDialog(false);
   }
 
   function openAddDialog() {
+    document.body.classList.add("dialog-visible");
     setDialogType(ADD);
     setViewDialog(true);
   }
 
   function openEditDialog(product) {
+    document.body.classList.add("dialog-visible");
     formik.setValues(product);
     setDialogType(EDIT);
     setViewDialog(true);

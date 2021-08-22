@@ -7,10 +7,13 @@ import {
   GET_CART,
   DELETE_PRODUCT,
   EDIT_PRODUCT,
-  GET_FEATURED_PRODUCT,
+  GET_FEATURED_PRODUCTS,
+  LOADING
 } from "../utils/app-const";
 
 const variable = (state, action) => {
+  state.loading = false;
+  
   switch (action.type) {
     case GET_USER:
       return {
@@ -20,14 +23,12 @@ const variable = (state, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        products: action.payload
       };
-    case GET_FEATURED_PRODUCT:
+    case GET_FEATURED_PRODUCTS:
       return {
         ...state,
-        featuredProduct: action.payload[state.featuredProductIndex],
-        featuredProductIndex:
-          ++state.featuredProductIndex > 8 ? 0 : state.featuredProductIndex,
+        featuredProducts: action.payload
       };
     case ADD_PRODUCT:
       return {
@@ -41,7 +42,6 @@ const variable = (state, action) => {
           if (p.id === action.payload.id) {
             return { ...p, ...action.payload };
           }
-
           return p;
         }),
       };
@@ -75,6 +75,11 @@ const variable = (state, action) => {
             ),
           })),
         },
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
       };
     case ERROR:
       return {

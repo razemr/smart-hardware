@@ -8,6 +8,10 @@ body {
   margin: 0;
 }
 
+body.dialog-visible {
+  overflow: hidden;
+}
+
 .app-title {
   text-align: center;
 }
@@ -215,7 +219,7 @@ body {
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.24);
-  z-index: 1;
+  z-index: 2;
 }
 
 #add-product form {
@@ -240,6 +244,27 @@ body {
 
 #add-product form .footer button:first-child {
   margin-right: 20px;
+}
+
+#loader {
+  position: fixed;
+  width: 80%;
+  top: 0;
+  height: 5px;
+  background-color: darkgreen;
+  z-index: 1;
+}
+
+#loader.animate {
+  animation-name: loading;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+}
+
+@keyframes loading {
+  0% { width: 0%; }
+  100% { width: 80%; }
 }
 
 @media (max-width: 1200px) {

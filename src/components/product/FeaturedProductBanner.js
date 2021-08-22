@@ -1,16 +1,22 @@
 import { FeaturedProduct } from "./FeaturedProduct";
 import { GlobalContext } from "../../context/GlobalState";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+
+let index = 0;
 
 export const FeaturedProductBanner = () => {
-  const { featuredProduct, getFeaturedProduct } = useContext(GlobalContext);
+  const { featuredProducts, getFeaturedProducts } = useContext(GlobalContext);
+  const [featuredProduct, setFeaturedProduct] = useState({});
 
   useEffect(() => {
-    getFeaturedProduct();
+    getFeaturedProducts();
+
+    setFeaturedProduct(featuredProducts[index]);
 
     let timer = setInterval(() => {
-      getFeaturedProduct();
-    }, 10000);
+      setFeaturedProduct(featuredProducts[index]);
+      if(++index === featuredProducts.length) index = 0;
+    }, 5000);
 
     return () => {
       clearInterval(timer);

@@ -13,7 +13,8 @@ import {
   GET_CART,
   DELETE_PRODUCT,
   EDIT_PRODUCT,
-  GET_FEATURED_PRODUCT,
+  GET_FEATURED_PRODUCTS,
+  LOADING
 } from "../utils/app-const";
 
 const initialState = {
@@ -28,19 +29,32 @@ const initialState = {
       lastName: "",
     },
   },
-  featuredProduct: {},
-  featuredProductIndex: 0,
+  featuredProducts: [],
+  loading: false,
   error: "",
 };
+
+const ax = axios.create({
+  baseURL: "http://localhost:8080/",
+  timeout: 1000,
+});
 
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  const setLoading = () => {
+      dispatch({
+        type: LOADING
+      });
+  };
+
   async function getUser() {
     try {
-      let res = await axios.get(`http://localhost:8080/users/${USER_ID}`);
+      setLoading();
+      let res = await ax.get(`users/${USER_ID}`);
+
       dispatch({
         type: GET_USER,
         payload: res.data,
@@ -55,7 +69,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function getProducts(params) {
     try {
-      let res = await axios.get("http://localhost:8080/products", {
+      setLoading();
+      let res = await ax.get("products", {
         params: params,
       });
 
@@ -71,12 +86,13 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function getFeaturedProduct() {
+  async function getFeaturedProducts() {
     try {
-      let res = await axios.get("http://localhost:8080/recommendeds");
+      setLoading();
+      let res = await ax.get("recommendeds");
 
       dispatch({
-        type: GET_FEATURED_PRODUCT,
+        type: GET_FEATURED_PRODUCTS,
         payload: res.data,
       });
     } catch (error) {
@@ -89,10 +105,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function editProduct(product, id) {
     try {
-      let res = await axios.put(
-        `http://localhost:8080/products/${id}`,
-        product
-      );
+      setLoading();
+      let res = await ax.put(`products/${id}`, product);
 
       dispatch({
         type: EDIT_PRODUCT,
@@ -108,7 +122,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function addProduct(product) {
     try {
-      let res = await axios.post("http://localhost:8080/products", product);
+      setLoading();
+      let res = await ax.post("products", product);
 
       dispatch({
         type: ADD_PRODUCT,
@@ -124,7 +139,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteProduct(id) {
     try {
-      await axios.delete(`http://localhost:8080/products/${id}`);
+      setLoading();
+      await ax.delete(`products/${id}`);
 
       dispatch({
         type: DELETE_PRODUCT,
@@ -140,9 +156,10 @@ export const GlobalProvider = ({ children }) => {
 
   async function getCart() {
     try {
+      setLoading();
       let res = await Promise.all([
-        axios.get(`http://localhost:8080/carts/${USER_ID}`),
-        axios.get("http://localhost:8080/products"),
+        ax.get(`carts/${USER_ID}`),
+        ax.get("products"),
       ]);
 
       dispatch({
@@ -159,7 +176,8 @@ export const GlobalProvider = ({ children }) => {
 
   async function updateCart(id, action) {
     try {
-      let res = await axios.get(`http://localhost:8080/carts/${USER_ID}`);
+      setLoading();
+      let res = await ax.get(`carts/${USER_ID}`);
       let userCart = res.data;
 
       if (action === ADD) {
@@ -183,8 +201,8 @@ export const GlobalProvider = ({ children }) => {
       }
 
       res = await Promise.all([
-        axios.put(`http://localhost:8080/carts/${USER_ID}`, userCart),
-        axios.get("http://localhost:8080/products"),
+        ax.put(`carts/${USER_ID}`, userCart),
+        ax.get("products"),
       ]);
 
       dispatch({
@@ -206,9 +224,10 @@ export const GlobalProvider = ({ children }) => {
         cart: state.cart,
         error: state.error,
         user: state.user,
-        featuredProduct: state.featuredProduct,
+        featuredProducts: state.featuredProducts,
+        loading: state.loading,
         getProducts,
-        getFeaturedProduct,
+        getFeaturedProducts,
         addProduct,
         deleteProduct,
         editProduct,
