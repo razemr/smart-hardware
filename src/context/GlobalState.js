@@ -13,8 +13,8 @@ import {
   GET_CART,
   DELETE_PRODUCT,
   EDIT_PRODUCT,
-  GET_FEATURED_PRODUCT,
   LOADING,
+  GET_FEATURED_PRODUCTS,
 } from "../utils/app-const";
 
 const initialState = {
@@ -29,13 +29,10 @@ const initialState = {
       lastName: "",
     },
   },
-  featuredProduct: {},
+  featuredProducts: [],
   loading: false,
   error: "",
 };
-
-let featuredProducts = [];
-let featuredIndex = 0;
 
 const ax = axios.create({
   baseURL: "http://localhost:8080/",
@@ -89,23 +86,12 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function getFeaturedProduct() {
+  async function getFeaturedProducts() {
     try {
-
-      if(featuredProducts.length === 0) {
-        setLoading();
-        let res = await ax.get("recommendeds");
-        featuredProducts = [...res.data];
-        featuredIndex = 0;
-
-      } else {
-        featuredIndex = featuredIndex + 1;
-        if(featuredIndex === featuredProducts.length ) featuredIndex = 0;
-      }
-
+      let res = await ax.get("recommendeds");
       dispatch({
-        type: GET_FEATURED_PRODUCT,
-        payload: featuredProducts[featuredIndex],
+        type: GET_FEATURED_PRODUCTS,
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
@@ -237,16 +223,15 @@ export const GlobalProvider = ({ children }) => {
         error: state.error,
         user: state.user,
         featuredProducts: state.featuredProducts,
-        featuredProduct: state.featuredProduct,
         loading: state.loading,
         getProducts,
-        getFeaturedProduct,
+        getFeaturedProducts,
         addProduct,
         deleteProduct,
         editProduct,
         getCart,
         updateCart,
-        getUser,
+        getUser
       }}
     >
       {children}

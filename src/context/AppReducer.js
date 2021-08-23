@@ -8,6 +8,7 @@ import {
   DELETE_PRODUCT,
   EDIT_PRODUCT,
   GET_FEATURED_PRODUCT,
+  GET_FEATURED_PRODUCTS,
   LOADING
 } from "../utils/app-const";
 
@@ -29,6 +30,11 @@ const variable = (state, action) => {
       return {
         ...state,
         featuredProduct: action.payload
+      };
+    case GET_FEATURED_PRODUCTS:
+      return {
+        ...state,
+        featuredProducts: action.payload
       };
     case ADD_PRODUCT:
       return {

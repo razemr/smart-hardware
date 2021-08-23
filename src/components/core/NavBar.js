@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context/GlobalState";
 import { Link, useLocation } from "react-router-dom";
 
@@ -10,7 +10,7 @@ export const NavBar = () => {
     getUser();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <div id="nav-bar">

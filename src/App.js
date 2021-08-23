@@ -1,8 +1,9 @@
+import React from 'react';
 import "./App.css";
 import "./styles/styles.scss";
 import { GlobalProvider } from "./context/GlobalState";
 import { Header } from "./components/core/Header";
-import { ShoppingCart } from "./components/cart/ShoppingCart";
+import { Cart } from "./components/cart/Cart";
 import { ProductsDisplay } from "./components/product/ProductsDisplay";
 import { NavBar } from "./components/core/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -26,7 +27,7 @@ function App() {
             <Route path="/" exact>
               <div className="main-container">
                 <ProductsDisplay />
-                <ShoppingCart />
+                <Cart />
               </div>
             </Route>
           </Switch>

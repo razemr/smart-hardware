@@ -1,4 +1,5 @@
-import { ProductList } from "./ProductList";
+import React from 'react';
+import { ProductGrid } from "./ProductGrid";
 import { FeaturedProductBanner } from "./FeaturedProductBanner";
 
 export const ProductsDisplay = () => {
@@ -6,7 +7,7 @@ export const ProductsDisplay = () => {
     <div id="products-container">
       <h3>Products</h3>
       <FeaturedProductBanner />
-      <ProductList />
+      <ProductGrid />
     </div>
   );
 };

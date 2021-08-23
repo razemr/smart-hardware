@@ -1,10 +1,10 @@
+import React, { useContext, useEffect, useState } from "react";
 import { Product } from "./Product";
 import { GlobalContext } from "../../context/GlobalState";
-import { useContext, useEffect, useState } from "react";
 import { PRODUCT_QUERY_LIMIT, TOTAL_PRODUCTS } from "../../utils/app-const";
 import { Paginator } from "../shared/Paginator";
 
-export const ProductList = () => {
+export const ProductGrid = () => {
   const { products, getProducts } = useContext(GlobalContext);
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);

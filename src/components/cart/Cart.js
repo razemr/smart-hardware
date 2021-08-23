@@ -1,8 +1,8 @@
+import React, { useContext, useEffect } from "react";
 import { CartItem } from "./CartItem";
 import { GlobalContext } from "../../context/GlobalState";
-import { useContext, useEffect } from "react";
 
-export const ShoppingCart = () => {
+export const Cart = () => {
   const { cart, getCart, updateCart } = useContext(GlobalContext);
 
   let subTotal = cart.products.reduce((a, b) => a + b.price * b.quantity, 0.0);

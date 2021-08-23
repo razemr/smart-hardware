@@ -1,3 +1,4 @@
+import React from "react";
 import { DELETE } from "../../utils/app-const";
 
 export const CartItem = (props) => {
