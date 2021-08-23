@@ -5,27 +5,19 @@ import * as Yup from "yup";
 import { urlRegex } from "../../utils/app-regex";
 import { ADD, EDIT } from "../../utils/app-const";
 import {
-  ADMIN_PRODUCT_QUERY_LIMIT,
-  TOTAL_PRODUCTS,
+  ADMIN_PRODUCT_QUERY_LIMIT
 } from "../../utils/app-const";
-import { Paginator } from "../shared/Paginator";
+import { Filter } from "../shared/Filter";
 
 export const AdminDashboard = () => {
   const { getProducts, products, addProduct, deleteProduct, editProduct } =
     useContext(GlobalContext);
   const [searchText, setSearchText] = useState("");
+  const [page, setPage] = useState(1);
   const [viewDialog, setViewDialog] = useState(false);
   const [dialogType, setDialogType] = useState(ADD);
-  const [page, setPage] = useState(1);
-  const [hide, setHide] = useState(false);
 
   useEffect(() => {
-    if(searchText){
-      setHide(true);
-    } else {
-      setHide(false);
-    }
-
     getProducts({
       q: searchText ? searchText : "",
       _page: searchText ? 1: page,
@@ -103,18 +95,7 @@ export const AdminDashboard = () => {
     <>
       <div id="admin-container">
         <div className="action-bar">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={(event) => setSearchText(event.target.value)}
-          ></input>
-          <Paginator
-            onChange={setPage}
-            page={page}
-            limit={ADMIN_PRODUCT_QUERY_LIMIT}
-            total={TOTAL_PRODUCTS}
-            hide={hide}
-          />
+          <Filter onPageChange={setPage} onSearchChange={setSearchText} page={page} limit={ADMIN_PRODUCT_QUERY_LIMIT}/>
           <button className="btn-default" onClick={(event) => openAddDialog()}>
             Add Product
           </button>
